@@ -7,11 +7,12 @@ Coding Conventions->
 
 Link for editing project design (Draw.io) https://drive.google.com/file/d/1xYjQPYiQYVEMwLN5e0dyKyTtv6hIZA2E/view?usp=sharing
 
-Link for github repo https://github.com/bibek-modak/Gym_Management_System
+Link for github repo https://github.com/D5-Gym-Management-System/Main_Project.git
 
 commands :-
 
-to clone repo git clone https://github.com/bibek-modak/Gym_Management_System.git
+to clone repo git clone https://github.com/D5-Gym-Management-System/Main_Project.git
+
 
 to add multiple/single files git add . or git add "filename"
 
