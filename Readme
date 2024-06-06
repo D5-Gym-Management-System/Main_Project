@@ -1,6 +1,9 @@
 [Full stack Web App for Gym Management System]
 
-Coding Conventions-> 1- Function Name to be written in Camel Case. ->Before writing each function write a comment about what the function does. 2- Class name and variable names to be written in Pascal casing. 3- Constant variables in FULL CAPITAL letters
+Coding Conventions-> 
+1- Function Name to be written in Camel Case. ->Before writing each function write a comment about what the function does. 
+2- Class name and variable names to be written in Pascal casing. 
+3- Constant variables in FULL CAPITAL letters
 
 Link for editing project design (Draw.io) https://drive.google.com/file/d/1xYjQPYiQYVEMwLN5e0dyKyTtv6hIZA2E/view?usp=sharing
 
