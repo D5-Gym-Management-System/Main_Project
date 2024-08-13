@@ -1,0 +1,95 @@
+.dashboard-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+}
+
+.profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-right: 20px;
+    border: 2px solid #007bff;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-info h1 {
+    margin: 0;
+}
+
+.profile-info p {
+    margin: 5px 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+.dashboard-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.workout-schedule,
+.progress-tracking,
+.subscription-graph {
+    flex: 1;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.workout-schedule h2,
+.progress-tracking h2,
+.subscription-graph h2 {
+    margin-top: 0;
+}
+
+.workout-schedule ul {
+    list-style: none;
+    padding: 0;
+}
+
+.workout-schedule li {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.workout-schedule li:last-child {
+    border-bottom: none;
+}
+
+.progress-details p {
+    margin: 5px 0;
+    font-size: 1rem;
+}
+
+.progress-details strong {
+    color: #333;
+}
+
+.subscription-graph {
+    height: 400px; /* Adjust as needed */
+}

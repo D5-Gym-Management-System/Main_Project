@@ -1,0 +1,67 @@
+.rules img{
+display: flex;
+align-items: center;
+height: 470px;
+width: 500px;
+margin: 5px;
+border-radius: 12px;
+
+}
+
+
+.rules{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+    align-items: center;
+    color: rgb(0, 0, 0);
+    align-content: center;
+    background-image: url("../Resources/Gym_images//img4.jpeg");
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+
+}
+
+ul{
+  list-style: circle;
+  list-style-type: disc;
+  list-style-position: inside;
+}
+
+.gym-rules {
+  margin-top: 30px;
+  padding-left: 20px;
+  text-align: left;
+  background-color: rgba(89, 94, 94, 0.8); /* Faded background */
+  padding: 10px;
+  font-size: larger;
+  border-radius: 25px;
+  color: #ffffff; /* Bright white text */
+  font-weight: bold; /* Make text bold for emphasis */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Optional: adds a slight shadow for more contrast */
+}
+.rules h1{
+  padding: 10px;
+  border: 2px solid black;
+  background-color: rgb(142, 215, 215);
+  border-radius: 30px;
+  color: rgb(221, 118, 0);
+}
+
+  .gym-rules li {
+    margin-bottom: 10px;
+  }
+
+.container{
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+  

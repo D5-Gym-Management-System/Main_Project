@@ -1,3 +1,4 @@
+
 [Full stack Web App for Gym Management System]
 
 Coding Conventions-> 
@@ -5,17 +6,31 @@ Coding Conventions->
 2- Class name and variable names to be written in Pascal casing. 
 3- Constant variables in FULL CAPITAL letters
 
-Link for editing project design (Draw.io) https://drive.google.com/file/d/1xYjQPYiQYVEMwLN5e0dyKyTtv6hIZA2E/view?usp=sharing
+Link for editing project design (Draw.io) -> https://drive.google.com/file/d/1xYjQPYiQYVEMwLN5e0dyKyTtv6hIZA2E/view?usp=sharing
 
-Link for github repo https://github.com/D5-Gym-Management-System/Main_Project.git
+Link for github repo -> https://github.com/D5-Gym-Management-System/Test.git
+
 
 commands :-
+to clone repo git clone -> https://github.com/D5-Gym-Management-System/Test.git
+to add multiple/single files - > git add . or git add "filename"
+to commit -> git commit -m "type your message here"
+to push changes -> git push -u origin main
 
-to clone repo git clone https://github.com/D5-Gym-Management-System/Main_Project.git
 
+Required Node packages :-
+yarn
+react-router-dom
+react-toastify
 
-to add multiple/single files git add . or git add "filename"
+Frontend-
+To run app :-
+open cmd inside folder directory
+~$npm install
+~$yarn start
 
-to commit git commit -m "type your message here"
-
-to push changes git push -u origin Test
+Backend-
+to run app :-
+->open spring tool suite/IntelliJ IDEA/Eclipse or any editors and import project
+->Change username and password in Application.properties to you corresponding Mysql credentials
+->run as spring boot app

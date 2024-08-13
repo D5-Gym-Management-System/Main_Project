@@ -1,0 +1,39 @@
+*{
+    scrollbar-width: thin;
+    scrollbar-color: inherit;
+}
+
+#trainerdashboardmain,#admindashboardmain,#userdashboardmain {
+    display: flex;
+    transition: all 0.3s ease-in-out;
+    align-items: center;
+}
+
+aside {
+    width: 250px; /* Default sidebar width */
+    transition: width 0.3s ease-in-out;
+}
+
+aside.open {
+    width: 250px; /* Sidebar open width */
+}
+
+aside:not(.open) {
+    width: 120px;
+    overflow: hidden;
+}
+
+#trainermaincontent,#adminmaincontent,#maincontent {
+    flex: 1;
+    padding: 20px;
+    transition: all 0.3s ease-in-out;
+    margin-left: 150px;
+}
+
+#trainermaincontent.collapsed,#adminmaincontent.collapsed, #maincontent.collapsed {
+    margin-left: 10px; /* Adjust based on sidebar width */
+}
+
+.toggle-btn {
+    margin-bottom: 20px;
+}

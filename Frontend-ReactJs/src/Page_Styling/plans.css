@@ -1,0 +1,16 @@
+#plansmain .container{
+    text-align: center;
+}
+
+#plansmain{
+
+height: 100vh;
+width: 100vw;
+background-image: url('../Resources/plans_bcg.jpg');
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+color: rgb(249, 249, 249);
+font-weight: 700;
+
+}
