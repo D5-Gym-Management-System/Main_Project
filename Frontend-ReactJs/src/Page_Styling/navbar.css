@@ -16,7 +16,7 @@
   }
 
   
-.navbar .dropdown-menu {
+  .navbar .dropdown-menu {
     display: block; /* Changed from `none` to `block` to allow transition */
     position: absolute;
     text-align: center;
@@ -26,12 +26,18 @@
     overflow: hidden;
     opacity: 0;
     transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
-  }
+    width: 200px; /* Set desired width */
+    min-width: 10px; /* Set a min-width to enforce */
+    max-width: 105px; /* Set a max-width to prevent expansion */
+    box-sizing: border-box; /* Include padding/border in width */
+}
+
+
   
   .navbar .nav-item:hover .dropdown-menu {
     max-height: 200px; /* Adjust this value to match your content */
     opacity: 1;
-    background-color: rgb(52, 180, 206);
+    background-color: rgb(52, 67, 206);
     border-radius: 0px 0px 20px 20px;
     cursor: grab;
     

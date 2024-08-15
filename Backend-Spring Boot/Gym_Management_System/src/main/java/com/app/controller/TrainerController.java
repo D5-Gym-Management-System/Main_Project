@@ -1,108 +1,108 @@
-//package com.app.controller;
-//
-//import java.util.Map;
-//
-//import javax.validation.Valid;
-//import javax.validation.constraints.NotNull;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.validation.annotation.Validated;
-//import org.springframework.web.bind.annotation.DeleteMapping;
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.PatchMapping;
-//import org.springframework.web.bind.annotation.PathVariable;
-//import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.PutMapping;
-//import org.springframework.web.bind.annotation.RequestBody;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RestController;
-//
-//import com.app.dto.ProjectDTO;
-//import com.app.dto.UserTrainer;
-//import com.app.service.TrainerService;
-//
-//import io.swagger.v3.oas.annotations.Operation;
-//
-//@RestController
-//@RequestMapping("/projects")
-//@Validated
-//public class TrainerController {
-//	@Autowired
-//	private TrainerService projectService;
-//
-//	public TrainerController() {
-//		System.out.println("in ctor of " + getClass());
-//	}
-//
-//	// launch new project
-//	// http://host:port/projects , method=POST
-//	@PostMapping
-//	public ResponseEntity<?> launchNewProject(@RequestBody @Valid ProjectDTO project) {
-//		System.out.println("in add proj " + project);
-//		return ResponseEntity.status(HttpStatus.CREATED).body(projectService.launchNewProject(project));
-//	}
-//
-//	// http://host:port/projects , method=GET
-//
-//	@GetMapping
-//	public ResponseEntity<?> getAllProjects() {
-//		System.out.println("in get all projs");
-//		return ResponseEntity.ok(projectService.getAllProjects());
-//	}
-//
-//	// http://host:port/projects/employees , method=POST
-//	@PostMapping("/employees")
-//	@Operation(summary = "Assign emp to Project")
-//	public ResponseEntity<?> addEmployeeToProject(@RequestBody UserTrainer projectEmp) {
-//		System.out.println("in add emp to proj " + projectEmp);
-//		return ResponseEntity.status(HttpStatus.CREATED)
-//				.body(projectService.assignEmpToProject(projectEmp.getProjectId(), projectEmp.getEmployeeId()));
-//	}
-//
-//	// http://host:port/projects/employees , method=DELETE
-//	@DeleteMapping("/employees")
-//	@Operation(summary = "Removing an emp from the project")
-//	public ResponseEntity<?> removeEmployeeFromProject(@RequestBody UserTrainer projectEmp) {
-//		System.out.println("in rem emp to proj " + projectEmp);
-//		return ResponseEntity.status(HttpStatus.CREATED)
-//				.body(projectService.removeEmpFromProject(projectEmp.getProjectId(), projectEmp.getEmployeeId()));
-//	}
-//
-//	// http://host:port/projects , method=PUT
-//	@PutMapping("/{projectId}")
-//	@Operation(summary = "Updating Complete project details")
-//	public ResponseEntity<?> updateProject(@PathVariable Long projectId, @RequestBody @Valid ProjectDTO dto) {
-//		System.out.println("in update proj " + projectId + " " + dto);
-//		return ResponseEntity.ok().body(projectService.updateProject(projectId, dto));
-//	}
-//
-//	// http://host:port/projects , method=DELETE
-//	@DeleteMapping("/{projectId}")
-//	@Operation(summary = "Deleting project details")
-//	public ResponseEntity<?> deleteProject(@PathVariable Long projectId) {
-//		System.out.println("in delete proj " + projectId);
-//		return ResponseEntity.ok().body(projectService.deleteProject(projectId));
-//	}
-//
-//	// update project details partial
-//	// http://host:port/projects/{projectId} , method=PATCH
-//	@PatchMapping("/{projectId}")
-//	@Operation(summary = "Partial updation of project details")
-//	public ResponseEntity<?> updateProjectDetails(@PathVariable @NotNull Long projectId,
+package com.app.controller;
+
+import java.util.Map;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.app.dto.TrainerDTO;
+import com.app.dto.UserTrainerDTO;
+import com.app.service.TrainerService;
+
+import io.swagger.v3.oas.annotations.Operation;
+
+@RestController
+@RequestMapping("/trainer")
+@Validated
+public class TrainerController {
+	@Autowired
+	private TrainerService trainerService;
+
+	public TrainerController() {
+		System.out.println("in ctor of " + getClass());
+	}
+
+	// launch new trainer
+	// http://host:port/trainers , method=POST
+	@PostMapping
+	public ResponseEntity<?> addNewTrainer(@RequestBody @Valid TrainerDTO trainerdto) {
+		System.out.println("in add trainer " + trainerdto);
+		return ResponseEntity.status(HttpStatus.CREATED).body(trainerService.addTrainer(trainerdto));
+	}
+
+	// http://host:port/trainers , method=GET
+
+	@GetMapping
+	public ResponseEntity<?> getAlltrainers() {
+		System.out.println("in get all trainers");
+		return ResponseEntity.ok(trainerService.getAllTrainer());
+	}
+	
+	@GetMapping("/{trainerId}")
+	public ResponseEntity<?> getAllUsersByTrainer(Long trainerId) {
+		System.out.println("in get all trainers");
+		return ResponseEntity.ok(trainerService.getAllUsersByTrainer(trainerId));
+	}
+
+	// http://host:port/trainers/users , method=POST
+	@PostMapping("/traineruser")
+	@Operation(summary = "Assign user to trainer")
+	public ResponseEntity<?> adduserTotrainer(@RequestBody UserTrainerDTO traineruser) {
+		System.out.println("in add user to proj " + traineruser);
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(trainerService.assignUserToTrainer(traineruser.getTrainer_id() ,traineruser.getUser_id() ));
+	}
+
+	// http://host:port/trainers/users , method=DELETE
+	@DeleteMapping("/{trainerId}/{userId}")
+	@Operation(summary = "Removing an user from the trainer")
+	public ResponseEntity<?> removeuserFromtrainer(@PathVariable Long trainerId,@PathVariable Long userId) {
+		System.out.println("in rem user to trainer " + userId);
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(trainerService.removeUserFromTrainer(trainerId, userId));
+	}
+
+	// http://host:port/trainers , method=PUT
+	@PutMapping("/{trainerId}/trainerdto")
+	@Operation(summary = "Updating Complete trainer details")
+	public ResponseEntity<?> updatetrainer(@PathVariable Long trainerId, @RequestBody @Valid TrainerDTO trainerdto) {
+		System.out.println("in update proj " + trainerId + " " + trainerdto);
+		return ResponseEntity.ok().body(trainerService.updateTrainer(trainerId, trainerdto));
+	}
+
+	
+	// http://host:port/trainers , method=DELETE
+	@DeleteMapping("/{trainerId}")
+	@Operation(summary = "Deleting trainer details")
+	public ResponseEntity<?> deletetrainer(@PathVariable Long trainerId) {
+		System.out.println("in delete proj " + trainerId);
+		return ResponseEntity.ok().body(trainerService.deleteTrainer(trainerId));
+	}
+
+//	// update trainer details partial
+//	// http://host:port/trainers/{trainerId} , method=PATCH
+//	@PatchMapping("/{trainerId}")
+//	@Operation(summary = "Partial updation of trainer details")
+//	public ResponseEntity<?> updatetrainerDetails(@PathVariable @NotNull Long trainerId,
 //			@RequestBody Map<String, Object> map) throws Exception {
-//		System.out.println("in partial update adr " + projectId + " " + map);
-//		return ResponseEntity.ok().body(projectService.patchProjectDetails(projectId, map));
+//		System.out.println("in partial update adr " + trainerId + " " + map);
+//		return ResponseEntity.ok().body(trainerService.patchtrainerDetails(trainerId, map));
 //	}
 //
-//	// update emp performance for specific project
-//	@PutMapping("/employees/performanceIndex")
-//	@Operation(summary = "Update emp perfomance")
-//	public ResponseEntity<?> updateEmpPerformanceForSpecificProject(@RequestBody @Valid UserTrainer dto) {
-//		System.out.println("in update perf " + dto);
-//		return ResponseEntity.ok(projectService.updateEmpPerformanceDetails(dto.getProjectId(), dto.getEmployeeId(),
-//				dto.getPerformanceIndex()));
-//	}
-//
-//}
+
+
+}

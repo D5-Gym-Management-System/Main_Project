@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 
 import org.apache.catalina.User;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -37,19 +38,17 @@ import lombok.ToString;
 public class Trainer extends BaseEntity {
 	
 	@Column(length = 30)
-	private String firstName;
-	@Column(length = 30)
-	private String lastName;
+	private String name;
 	@Column(length = 30, unique = true) // =>unique
 	private String email;
 	@Column(nullable = false) // =>NOT NULL
 	private String password;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate joinDate;
-	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	@DateTimeFormat(pattern = "HH:mm:ss")
 	private LocalDateTime inTime;
-	@DateTimeFormat(pattern = "HH:mm")
-	private LocalTime outTime;
+	@DateTimeFormat(pattern = "HH:mm:ss")
+	private LocalDateTime outTime;
 	@Enumerated(EnumType.STRING) // col : varchar => enum constant name
 	@Column(length = 30)
 	private TrainerType type;
@@ -57,31 +56,11 @@ public class Trainer extends BaseEntity {
 //	private byte[] image;
 	private String imagePath;
 	private double salary;
-	
-//	// many to one association
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "department_id") // Optional BUT reco , to specify the name of FK col.
-//	private Trainer trainer;
-	// one to one association Employee ----> AdharCard
-	
-//	@Embedded // OPTIONAL
-//	private AdhaarCard card;
-
-//	// Employee HAS-A skills (string)
-//	@ElementCollection // mandatory
-//	@CollectionTable(name = "emp_skills", joinColumns = @JoinColumn(name = "emp_id"))
-//	@Column(name = "skill_name", length = 20)
-//	private List<String> skills = new ArrayList<>();
-//	// one to many association between Employee 1--->* PaymentCard
-//	@ElementCollection
-//	@CollectionTable(name = "emp_payment_cards", 
-//	joinColumns = @JoinColumn(name = "emp_id"))
-//	private List<PaymentCard> cards = new ArrayList<>();
-	
-
+	@Min(0)
+	int age;
 		
 	// one to many
-	@OneToMany(mappedBy = "trainer", cascade = CascadeType.ALL, orphanRemoval = true /* , fetch = FetchType.EAGER */ )
+	@OneToMany(mappedBy = "trainer", cascade = CascadeType.PERSIST /* , orphanRemoval = true */)
 	private List<Users> users = new ArrayList<>();
 	
 

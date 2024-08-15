@@ -12,7 +12,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 @Entity
 @Table(name = "user_trainer_details")
 @NoArgsConstructor
@@ -20,22 +19,24 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TrainerUserDetails {
-	@EmbeddedId // composite PK
-	private TrainerUserId memberId = new TrainerUserId(); // Example of strong association: composition
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@MapsId("trainerId") // Shared PK approach
-	@JoinColumn(name = "trainer_id")
-	private Trainer trainer;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@MapsId("userId") // Shared PK approach
-	@JoinColumn(name = "UserId")
-	private Users user;
 
-	public TrainerUserDetails(TrainerUserId memberId) {
-		super();
-		this.memberId = memberId;
-	}
-	
+    @EmbeddedId
+    private TrainerUserId memberId = new TrainerUserId(); // Composite primary key
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("trainerId") // Refers to the field name in TrainerUserId
+    @JoinColumn(name = "trainer_id")
+    private Trainer trainer;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("userId") // Refers to the field name in TrainerUserId
+    @JoinColumn(name = "user_id")
+    private Users user;
+    
+    // Optional constructor
+    public TrainerUserDetails(Trainer trainer, Users user) {
+        this.trainer = trainer;
+        this.user = user;
+        this.memberId = new TrainerUserId(trainer.getId(), user.getId());
+    }
 }

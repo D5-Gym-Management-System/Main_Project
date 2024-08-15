@@ -18,11 +18,11 @@ import com.app.dao.UserTrainerDetailsDao;
 import com.app.dto.ApiResponse;
 //import com.app.dto.ProjectDTO;
 import com.app.dto.TrainerDTO;
+import com.app.dto.UserDTO;
 import com.app.entities.Trainer;
 import com.app.entities.TrainerUserDetails;
 import com.app.entities.TrainerUserId;
 import com.app.entities.Users;
-import com.app.entities.Membership;
 
 @Service
 @Transactional
@@ -32,6 +32,9 @@ public class TrainerServiceImpl implements TrainerService {
 
 	@Autowired
 	private UserDao userRepo;
+	
+	@Autowired
+    private UserTrainerDetailsDao userTrainerDetailsDao; // Inject the UserTrainerDetailsDao
 
 	@Autowired
 	private ModelMapper mapper;
@@ -58,29 +61,49 @@ public class TrainerServiceImpl implements TrainerService {
 
 	@Override
 	public ApiResponse assignUserToTrainer(Long trainerId, Long userId) {
-		Trainer trainer = trainerRepo.getReferenceById(trainerId);
-//				.findById(projectId)
-//				.orElseThrow(() -> new ResourceNotFoundException("Invalid Project ID!!!!"));
-		Users user = userRepo.getReferenceById(userId);
+	    Trainer trainer = trainerRepo.getReferenceById(trainerId);
+//	    		findById(trainerId).orElseThrow(() -> new ResourceNotFoundException("Invalid trainer ID: " + trainerId));
+	   
+	    Users user = userRepo.getReferenceById(userId);
+//	    		findById(userId).orElseThrow(() -> new ResourceNotFoundException("Invalid User ID: " + userId));
 
-		// .findById(empId).orElseThrow(() -> new ResourceNotFoundException("Invalid Emp
-		// ID!!!!"));
+	    // Check if the association already exists to prevent duplication
+	    TrainerUserId id = new TrainerUserId(trainerId, userId);
+	    if (TrainerUserRepo.existsById(id)) {
+	        return new ApiResponse("User is already assigned to this trainer.");
+	    }
 
-		// Not needed ! ProjectEmployeeId id=new ProjectEmployeeId(projectId, empId);
-		TrainerUserDetails details = new TrainerUserDetails();
-		details.setTrainer(trainer); //establishing many-to-one uni dir asso : projempdetails --> emp
-		details.setUser(user);//establishing many-to-one uni dir asso : projempdetails --> project
-		TrainerUserRepo.save(details);
-		return new ApiResponse("user  added to trainer: ");
-	}//rec will be inserted in asso table
+	    TrainerUserDetails details = new TrainerUserDetails();
+	    details.setTrainer(trainer);
+	    details.setUser(user);
+	    details.setMemberId(id);
+	    trainer.addUser(user);
+	    TrainerUserRepo.save(details);
+	    return new ApiResponse("User added to trainer successfully.");
+	}
+
 
 	@Override
 	public ApiResponse removeUserFromTrainer(Long trainerId, Long userId) {
 
-		// Currently not added any  validations to chk if projectId n emp Id : exists
-		// You can add them (refer to earlier method)
-		TrainerUserId id = new TrainerUserId(trainerId, userId);
-		TrainerUserRepo.deleteById(id);
+	    Trainer trainer = trainerRepo.findById(trainerId)
+	            .orElseThrow(() -> new ResourceNotFoundException("Invalid Trainer Id !!!"));
+	    Users usertomatch = userRepo.findById(userId)
+	            .orElseThrow(() -> new ResourceNotFoundException("Invalid User Id !!!"));
+	    
+	    // Disassociate users from the trainer without removing them
+	    List<Users> users = trainer.getUsers();
+	    users.forEach(user -> {
+	    	if(user==usertomatch)
+	    	{ 
+	    	user.setTrainer(null);
+	        userRepo.save(user); // Save each user to update the trainer reference
+	    	
+	    	}
+	    	});
+	    
+	    // Delete associated records in user_trainer_details
+	    userTrainerDetailsDao.deleteByMemberId_TrainerId(trainerId);
 		return new ApiResponse("delete user details from specified trainer");
 	}
 
@@ -89,8 +112,6 @@ public class TrainerServiceImpl implements TrainerService {
 		// validate if project exists by id
 		Trainer trainer = trainerRepo.findById(trainerId)
 				.orElseThrow(() -> new ResourceNotFoundException("Invalid Project Id !!!"));
-		// => project exists
-		// dto contains the updates , so apply it --> to entity
 		mapper.map(dto, trainer);
 		System.out.println("after mapping " + trainerId);
 		trainerRepo.save(trainer);
@@ -100,17 +121,39 @@ public class TrainerServiceImpl implements TrainerService {
 
 	@Override
 	public ApiResponse deleteTrainer(Long trainerId) {
-		// delete child records in from child table (entity : ProjectEmp)
-//		long noOfEmpsInProject = TrainerUserRepo.deleteByMyProjectId(trainerId);
-//		System.out.println("deleted " + noOfEmpsInProject);
-		// delete project details : currently assuming projectId exists , later you can add
-		// a check
-		trainerRepo.deleteById(trainerId);
-		return new ApiResponse("Deleted project details ....");
+	    // Find the trainer to be deleted
+	    Trainer trainer = trainerRepo.findById(trainerId)
+	            .orElseThrow(() -> new ResourceNotFoundException("Invalid Trainer Id !!!"));
+	    
+	    // Disassociate users from the trainer without removing them
+	    List<Users> users = trainer.getUsers();
+	    users.forEach(user -> {
+	        user.setTrainer(null);
+	        userRepo.save(user); // Save each user to update the trainer reference
+	    });
+	    
+	    // Delete associated records in user_trainer_details
+	    userTrainerDetailsDao.deleteByMemberId_TrainerId(trainerId);
+	    
+	    // Now delete the trainer
+	    trainerRepo.deleteById(trainerId);
+	    
+	    return new ApiResponse("Deleted trainer details, users retained.");
 	}
 
-	
-	
-	
+	public List<UserDTO> getAllUsersByTrainer(Long trainerId) {
+        // Fetch the Trainer entity by its ID
+        Trainer trainer = trainerRepo.findById(trainerId)
+                .orElseThrow(() -> new ResourceNotFoundException("Trainer not found with ID: " + trainerId));
+
+        // Get the list of Users associated with the Trainer
+        List<Users> users = trainer.getUsers();
+
+        // Map the Users to UserDTO
+        return users.stream()
+                .map(user -> mapper.map(user, UserDTO.class))
+                .collect(Collectors.toList());
+    }
+
 
 }

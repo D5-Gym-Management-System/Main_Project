@@ -8,6 +8,7 @@ import java.util.List;
 import com.app.dto.ApiResponse;
 //import com.app.dto.ProjectDTO;
 import com.app.dto.TrainerDTO;
+import com.app.dto.UserDTO;
 
 public interface TrainerService {
 
@@ -15,6 +16,8 @@ public interface TrainerService {
 	TrainerDTO addTrainer(TrainerDTO trainer);
 	
 	List<TrainerDTO> getAllTrainer();
+	
+	List<UserDTO> getAllUsersByTrainer(Long trainerId);
 
 	ApiResponse assignUserToTrainer(Long trainerId, Long userId);
 
@@ -23,6 +26,7 @@ public interface TrainerService {
 	TrainerDTO updateTrainer(Long trainerId, TrainerDTO dto);
 
 	ApiResponse deleteTrainer(Long trainerId);
+
 	
 
 }

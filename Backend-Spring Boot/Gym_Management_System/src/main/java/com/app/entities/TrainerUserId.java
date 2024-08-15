@@ -11,19 +11,46 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import java.io.Serializable;
+import java.util.Objects;
+
 @Embeddable //=> To Tell JPA , follwoing class DOES NOT have a separate existence
 //Instead the contents are going to embedded within the owning entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode
-@ToString
-//composite PK class
 public class TrainerUserId implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    @Column(name = "trainer_id")
+    private Long trainerId;
 
-	private Long TrainerID;
-	private Long UserId;
+    @Column(name = "user_id")
+    private Long userId;
+
+    // Default constructor
+    public TrainerUserId() {}
+
+    // Parameterized constructor
+    public TrainerUserId(Long trainerId, Long userId) {
+        this.trainerId = trainerId;
+        this.userId = userId;
+    }
+
+    // Getters and Setters
+    // ...
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TrainerUserId that = (TrainerUserId) o;
+        return Objects.equals(trainerId, that.trainerId) &&
+               Objects.equals(userId, that.userId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(trainerId, userId);
+    }
 }

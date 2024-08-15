@@ -19,11 +19,22 @@ const navigate=useNavigate();
         <li className="nav-item">
           <a className="nav-link " onClick={()=>navigate("/home")}>Home</a>
         </li>
-        <li className="nav-item">
-          <a className="nav-link" onClick={()=>navigate("/login")}>Login</a>
+        <li className="nav-item dropdown">
+        <a className="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login</a>
+          <div className="dropdown-menu">
+            <a className="dropdown-item" onClick={()=>navigate("/login/Admin")}>Admin</a>
+            <a className="dropdown-item" onClick={()=>navigate("/login/User")}>User</a>
+            <a className="dropdown-item" onClick={()=>navigate("/login/Trainer")}>Trainer</a>
+      
+          </div>
         </li>
-        <li className="nav-item">
-          <a className="nav-link" onClick={()=>navigate("/register")}>Register</a>
+        <li className="nav-item dropdown">
+        <a className="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Register</a>
+          <div className="dropdown-menu">
+            <a className="dropdown-item" onClick={()=>navigate("/register/User")}>User</a>
+            <a className="dropdown-item" onClick={()=>navigate("/register/Trainer")}>Trainer</a>
+      
+          </div>
         </li>
         <li className="nav-item dropdown">
         <a className="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Features</a>

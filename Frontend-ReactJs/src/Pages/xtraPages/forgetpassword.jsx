@@ -77,7 +77,7 @@ export function Forgetpassword( data ) {
                     
               setShowModal(false);
               setTimeout(()=>{
-                navigate('/login');},3000)
+                navigate('/');},2000)
               console.log("Password:", password, "Confirm Password:", confirmPassword);
         
                 } catch (error) {
@@ -85,7 +85,7 @@ export function Forgetpassword( data ) {
                 }
                 toast("Password changed successfully! Redirecting in 3 secs", {
                   transition: Zoom,
-                  autoClose: 2800,
+                  autoClose: 1900,
               });
           }
       };

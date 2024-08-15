@@ -13,8 +13,13 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -44,6 +49,7 @@ public class Users extends BaseEntity {
 	@Enumerated(EnumType.STRING) // col : varchar => enum constant name
 	@Column(length = 30)
 	private MembershipType type;
+	@Min(0)
 	int age;
 //	@Lob // large object :col : longblob
 //	private byte[] image;
@@ -51,8 +57,10 @@ public class Users extends BaseEntity {
 	private double membershipCost;
 	// many to one association
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "trainer_id") // Optional BUT reco , to specify the name of FK col.
+	@JsonProperty(access = Access.WRITE_ONLY)
+	@JoinColumn(name = "trainerId") // Optional BUT reco , to specify the name of FK col.
 	private Trainer trainer;
+	
 	// one to one association Employee ----> AdharCard
 //	@Embedded // OPTIONAL
 //	private AdhaarCard card;

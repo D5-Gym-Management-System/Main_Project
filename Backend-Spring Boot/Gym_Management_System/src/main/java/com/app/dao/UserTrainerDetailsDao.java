@@ -1,15 +1,13 @@
 package com.app.dao;
 
-import java.util.List;
+//import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+//import org.springframework.data.jpa.repository.Query;
 
-import com.app.entities.Trainer;
+//import com.app.entities.Trainer;
 import com.app.entities.TrainerUserDetails;
 import com.app.entities.TrainerUserId;
-import com.app.entities.Membership;
-
 public interface UserTrainerDetailsDao extends JpaRepository<TrainerUserDetails, TrainerUserId> {
 //delete all details by specified emp id (use case : delete emp details)
 //	int deleteByMyUserId(Long userId);
@@ -24,5 +22,12 @@ public interface UserTrainerDetailsDao extends JpaRepository<TrainerUserDetails,
 //	List<Membership> findByUserId(Long userId);
 //	
 	
-
+	 boolean existsById(TrainerUserId id);
+	 
+	 	//uses derived method
+	  // Delete all records by trainer ID 
+	    void deleteByMemberId_TrainerId(Long trainerId);
+	    
+	 
+	 
 }

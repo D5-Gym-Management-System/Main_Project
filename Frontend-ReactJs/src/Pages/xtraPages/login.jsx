@@ -58,10 +58,13 @@ export function Login(data) {
       {/* <Loginnavbar/> */}
       <form id="loginform" onSubmit={afterlogin}>
         {data.type === "user" ? (
-          <h1>Welcome User Login</h1>
+          <h1>User Login</h1>
         ) : null}
         {data.type === "trainer" ? (
-          <h1>Welcome Trainer Login</h1>
+          <h1>Trainer Login</h1>
+        ) : null}
+        {data.type === "admin" ? (
+          <h1>Admin Login</h1>
         ) : null}
         <br />
         <section>

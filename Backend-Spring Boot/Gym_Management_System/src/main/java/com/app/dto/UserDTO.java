@@ -40,8 +40,8 @@ public class UserDTO {
 //	 @JsonDeserialize(using = MembershipTypeDeserializer.class)
 	private MembershipType type;
 	private double membershipCost;
-	@JsonProperty(access = Access.WRITE_ONLY) // used during de-serialization
+	@JsonProperty(access = Access.READ_ONLY) // used during de-serialization
 	private Long trainerId;
-	int age;
+	private int age;
 	
 }

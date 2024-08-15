@@ -46,8 +46,8 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private ImageHandlingService imgHandlingService;
 
-	@Autowired
-	private UserTrainerDetailsDao userTrainerRepo;
+//	@Autowired
+//	private UserTrainerDetailsDao userTrainerRepo;
 
 	@Override
 	public List<UserDTO> getAllUsersFromTrainer(Long trainerId) {

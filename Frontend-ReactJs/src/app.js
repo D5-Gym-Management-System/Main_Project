@@ -32,8 +32,12 @@ return (
       {/* <Navbar/> */}
       <Route path='/' element= {<Home/>} />
       <Route path='/home' element= {<Home/>} />
-      <Route path='/register' element= {<Register type="user"/>} />
-      <Route path='/login' element= {<Login type="user"/>} />
+      <Route path='/register/User' element= {<Register type="user"/>} />
+      <Route path='/register/Trainer' element= {<Register type="trainer"/>} />
+      <Route path='/register/Admin' element= {<Register type="admin"/>} />
+      <Route path='/login/Admin' element= {<Login type="admin"/>} />
+      <Route path='/login/User' element= {<Login type="user"/>} />
+      <Route path='/login/Trainer' element= {<Login type="trainer"/>} />
       <Route path='/forgetpassword' element= {<Forgetpassword type="user"/>} />
       <Route path='/plans' element= {<Plans/>} />
       <Route path='/userdashboard' element= {<Userdashboard/>} />

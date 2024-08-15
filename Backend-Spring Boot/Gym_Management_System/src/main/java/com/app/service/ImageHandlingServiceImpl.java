@@ -74,7 +74,7 @@ public class ImageHandlingServiceImpl implements ImageHandlingService {
 		trainer.setImagePath(path);
 		// OR to store the img directly in DB as a BLOB
 		// emp.setImage(image.getBytes());
-		System.out.println("Image file uploaded successfully for emp " + trainer.getFirstName());
+		System.out.println("Image file uploaded successfully for emp " + trainer.getName());
 	}
 
 	@Override
