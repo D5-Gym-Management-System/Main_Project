@@ -12,16 +12,18 @@ export const SidebarData = [
     componentName:'home'
   },
   {
-    title: 'View schedule',
-    path: '/cart',
+    title: 'View Subscriber',
+    path: '',
     icon: <IoIcons.IoIosPaper />,
-    cName: 'nav-text'
+    cName: 'nav-text',
+    componentName:'mysubscriber'
   },
   {
-    title: 'add Training',
-    path: '/products',
+    title: 'Manage Subscriber',
+    path: '',
     icon: <FaIcons.FaCartPlus />,
-    cName: 'nav-text'
+    cName: 'nav-text',
+    componentName:'subscriber'
   },
   {
     title: 'Profile',
@@ -46,8 +48,9 @@ export const SidebarData = [
   },
   {
     title: 'Logout',
-    path: '/',
+    path: '',
     icon: <IoIcons.IoIosLogOut/>,
-    cName: 'nav-text'
+    cName: 'nav-text',
+    componentName:'logout'
   }
 ];

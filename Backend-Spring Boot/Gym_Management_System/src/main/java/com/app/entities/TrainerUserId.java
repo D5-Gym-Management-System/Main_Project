@@ -37,20 +37,14 @@ public class TrainerUserId implements Serializable {
         this.userId = userId;
     }
 
-    // Getters and Setters
-    // ...
+    
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        TrainerUserId that = (TrainerUserId) o;
-        return Objects.equals(trainerId, that.trainerId) &&
-               Objects.equals(userId, that.userId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(trainerId, userId);
-    }
+	
+	  @Override public boolean equals(Object o) { if (this == o) return true; if (o
+	  == null || getClass() != o.getClass()) return false; TrainerUserId that =
+	  (TrainerUserId) o; return Objects.equals(trainerId, that.trainerId) &&
+	 Objects.equals(userId, that.userId); }
+	  
+	  @Override public int hashCode() { return Objects.hash(trainerId, userId); }
+	 
 }

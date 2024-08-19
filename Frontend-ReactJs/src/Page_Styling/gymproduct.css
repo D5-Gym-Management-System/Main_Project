@@ -1,16 +1,24 @@
-/* src/components/GymProducts.css */
-/* src/components/GymProducts.css */
 .gym-products-container {
   display: flex;
   align-items: center;
   flex-direction: column;
+  justify-content: center;
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
 }
 
+.gym-products-container .header{
+  display: flex;
+  width:70vw;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+
 .search-bar {
-  width: 100%;
+  width: 80%;
   padding: 0.5rem;
   margin-bottom: 1.5rem;
   font-size: 1rem;
@@ -34,19 +42,24 @@
 .products-list {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
  
 }
 
 .product-item {
+  display: flex;
+  flex-direction: column;
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 1rem;
   margin: 1rem;
   text-align: center;
-  width: calc(25% - 2rem);
+  /* width: calc(25% - 2rem); */
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   transition: transform 0.2s;
+  width: 220px;
+
 }
 
 .product-item:hover {
@@ -54,8 +67,9 @@
 }
 
 .product-image {
-  max-width: 100%;
-  height: auto;
+  width: 100%; /* Ensures the image takes up the full width of its container */
+  height: 200px; /* Sets a consistent height for all images */
+  object-fit: fill; /* Crops the image to cover the entire area without distorting */
   border-radius: 8px;
 }
 
@@ -85,5 +99,38 @@
 }
 
 .add-to-cart-button:hover {
-  background-color: #45a049;
+  background-color: #5945a0;
 }
+
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-icon {
+  font-size: 40px;
+  color: #333;
+  cursor: pointer;
+  margin-left: 20px;  
+}
+
+
+.cart-container1 {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.cart-count {
+  background-color: red;
+  color: white;
+  font-size: 14px;
+  padding: 3px 7px;
+  border-radius: 50%;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+}
+

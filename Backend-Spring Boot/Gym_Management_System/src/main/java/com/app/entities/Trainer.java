@@ -45,20 +45,20 @@ public class Trainer extends BaseEntity {
 	private String password;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate joinDate;
-	@DateTimeFormat(pattern = "HH:mm:ss")
-	private LocalDateTime inTime;
-	@DateTimeFormat(pattern = "HH:mm:ss")
-	private LocalDateTime outTime;
+	@DateTimeFormat(pattern = "HH:mm")
+	private LocalTime inTime;
+	@DateTimeFormat(pattern = "HH:mm")
+	private LocalTime outTime;
 	@Enumerated(EnumType.STRING) // col : varchar => enum constant name
 	@Column(length = 30)
-	private TrainerType type;
+	private TrainerType trainerType;
 //	@Lob // large object :col : longblob
 //	private byte[] image;
 	private String imagePath;
 	private double salary;
 	@Min(0)
 	int age;
-		
+	
 	// one to many
 	@OneToMany(mappedBy = "trainer", cascade = CascadeType.PERSIST /* , orphanRemoval = true */)
 	private List<Users> users = new ArrayList<>();
@@ -74,7 +74,7 @@ public class Trainer extends BaseEntity {
 		users.remove(e);
 		e.setTrainer(null);
 	}
-
+	
 	
 
 }

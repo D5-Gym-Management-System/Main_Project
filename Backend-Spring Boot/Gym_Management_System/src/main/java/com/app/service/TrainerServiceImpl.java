@@ -1,6 +1,7 @@
 package com.app.service;
 
 import java.util.List;
+import java.util.Optional;
 //import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -154,6 +155,15 @@ public class TrainerServiceImpl implements TrainerService {
                 .map(user -> mapper.map(user, UserDTO.class))
                 .collect(Collectors.toList());
     }
+
+	@Override
+	public TrainerDTO getUserByUsernameAndPassword(String username, String password) {
+		  Optional<Trainer> trainerOptional = trainerRepo.findByUsernameAndPassword(username, password);
+		    
+		    return trainerOptional.map(trainer -> mapper.map(trainer, TrainerDTO.class)).orElse(null);
+		
+	}
+	
 
 
 }

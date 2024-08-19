@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import gym_rules from '../../Resources/gym_rules.jpg';
+// import gym_rules from '../../Resources/gym_rules.jpg';
 import '../../Page_Styling/rules.css'
 function Rules(){
 
@@ -22,7 +22,7 @@ return(
     
       <section>
       <button onClick={()=>navigate('/home')} className="btn btn-primary">Home</button>
-      <button onClick={()=>navigate('/register')} className="btn btn-secondary">Go to Registration</button>
+      <button onClick={()=>navigate('/register/User')} className="btn btn-secondary">Go to Registration</button>
     </section>
     </div>
 

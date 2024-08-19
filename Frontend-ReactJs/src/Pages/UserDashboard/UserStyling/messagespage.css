@@ -68,6 +68,7 @@
     border-radius: 4px;
     margin-bottom: 1rem;
     resize: vertical;
+    position: relative;
 }
 
 .send-message .btn-primary {
@@ -83,3 +84,4 @@
 .btn-primary:hover {
     background-color: #0056b3;
 }
+

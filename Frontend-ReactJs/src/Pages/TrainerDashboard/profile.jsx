@@ -1,56 +1,67 @@
 import React, { useContext, useState } from 'react';
 import '../../Page_Styling/profile.css'; // Import your CSS file for styling
 import { UserContext } from '../UserDashboard/usercontext.js';
+import { Bounce, Slide, Zoom, ToastContainer, toast, Flip } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
-
+import { TrainerContext } from './trainercontext.js';
+import { useNavigate } from 'react-router';
 const Profile = (e) => {
     // const { user, setUser } = useContext(UserContext);  // Get user details from context
-    const user={name:"bibek",email:"bibek@gmail.com",age:25,}
+    
     const [isEditing, setIsEditing] = useState(false);
-    const [formData, setFormData] = useState(/*{ ...user }*/);  // Initialize formData with context data
     const [showModal, setShowModal] = useState(false);  // State to control modal visibility
-
+    const { trainer ,setTrainer} = useContext(TrainerContext);
+    const [formData, setFormData] = useState({ ...trainer });  // Initialize formData with context data
+    const navigate=useNavigate();
    
     const handleEditClick = () => {
         setIsEditing(true);
     };
 
     const handleSaveClick = async () => {
-        // setUser({ ...formData });  // Update the user context with the new form data
-        // setIsEditing(false);
+        setTrainer({ ...formData });  // Update the user context with the new form data
+        setIsEditing(false);
         
-        // try {
-        //     const response = await axios.put(`http://localhost:8080/user/${user.id}`, formData); // Use formData for the request
-        //     console.log(response.data);
+        try {
+            const response = await axios.put(`http://localhost:8080/trainer/${trainer.id}`, formData); // Use formData for the request
+            console.log(response.data);
+            toast(`Trainer ${trainer.name} updated successfully`, {
+                transition: Zoom,
+                autoClose: 1000,
+            });
 
-        // } catch (error) {
-        //     console.error("Data could not be updated, error -> " + error);
-        // }
+        } catch (error) {
+            console.error("Data could not be updated, error -> " + error);
+        }
     };
 
     const handleDeleteClick = async () => {
-        // try {
-        //     const response = await axios.delete(`http://localhost:8080/user/${user.id}`); // Use formData for the request
-        //     console.log(response.data);
-            
-        //     // Handle successful deletion (e.g., redirect or clear user data)
-        // } catch (error) {
-        //     console.error("Data could not be updated, error -> " + error);
-        // }
-        // setShowModal(false);  // Hide the modal after deletion
+        try {
+            const response = await axios.delete(`http://localhost:8080/trainer/${trainer.id}`); // Use formData for the request
+            console.log(response.data);
+            toast(`Trainer ${trainer.name} deleted successfully`, {
+                transition: Zoom,
+                autoClose: 2000,
+            });
+            setTimeout(()=>navigate('/'),2000);
+        } catch (error) {
+            console.error("Data could not be updated, error -> " + error);
+        }
+        setShowModal(false);  // Hide the modal after deletion
     };
     
     const handleCancelClick = () => {
-        // setFormData({ ...user });  // Reset form data to the original user data
-        // setIsEditing(false);
+        setFormData({ ...trainer });  // Reset form data to the original user data
+        setIsEditing(false);
     };
 
     const handleChange = (e) => {
-        // const { name, value } = e.target;
-        // setFormData((prevData) => ({
-        //     ...prevData,
-        //     [name]: value,
-        // }));
+        const { name, value } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
     };
 
     return (
@@ -61,18 +72,24 @@ const Profile = (e) => {
                     alt="Profile"
                     className="profile-image"
                 />
-                <h1 className="profile-name">{user.name}</h1>
+                <h1 className="profile-name">{trainer.name}</h1>
             </div>
             <div className="profile-details">
-                <p>Email: {isEditing ? <input type="email" name="email" value={formData.email} onChange={handleChange} /> : user.email}</p>
-                <p>Age: {isEditing ? <input type="number" name="age" value={formData.age} onChange={handleChange} /> : user.age}</p>
-                <p>Membership Type: 
-                {isEditing ? (<select name="type" value={formData.type} onChange={handleChange}>
-                        <option value="PLATINUM">Platinum</option>
-                        <option value="GOLD">Gold</option>
-                        <option value="SILVER">Silver</option>
-                    </select>) : (user.type)}</p>
-                <p>Membership End: {isEditing ? <input type='date' name="membershipEnd" value={formData.membershipEnd} onChange={handleChange} /> : user.membershipEnd}</p>
+                <p>Email:  {isEditing ? <input type="email" name="email" value={formData.email} onChange={handleChange} /> : trainer.email}</p>
+                <p>Age:  {isEditing ? <input type="number" name="age" value={formData.age} onChange={handleChange} /> : trainer.age}</p>
+                <p>Trainer Type:  {isEditing ? (<select name="type" value={formData.trainerType} onChange={handleChange}>
+                    <option value="CARDIO">Cardio</option>
+              <option value="ZUMBA">Zumba</option>
+              <option value="FULL_BODY">Full body Trainer</option>
+              <option value="PERSONAL_TRAINER">Personal Trainer</option>
+              <option value="FLEXIBILITY">Flexibility Trainer</option>
+              <option value="STRENGTH">Strength Trainer</option>
+              <option value="NUTRITION">Nutrition Trainer</option>
+            </select>) :  trainer.trainerType}</p>
+                <p>Salary: {isEditing ?<input type='text' name="salary" value ={formData.salary} onChange={handleChange} />:trainer.salary}</p>
+                <p>Joining Date: {<input type='date' name="joiningDate" value={trainer.joinDate} disabled />}</p>
+                <p>In Time: {<input type='time' name="inTime" value ={trainer.inTime} disabled />}</p>
+                <p>Out Time: {<input type='time' name="outTime" value ={trainer.outTime} disabled />}</p>
             </div>
             <div className="profile-actions">
                 {isEditing ? (
@@ -114,6 +131,7 @@ const Profile = (e) => {
                     </div>
                 </div>
             )}
+            <ToastContainer/>
         </div>
     );
 };

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -14,6 +15,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 public class UserTrainerDTO {
 	@JsonProperty(access = Access.READ_ONLY) //used during serialization
 	private Long id;
@@ -22,6 +24,5 @@ public class UserTrainerDTO {
 	@NotNull
 	private Long user_id;
 
-	
 }
 

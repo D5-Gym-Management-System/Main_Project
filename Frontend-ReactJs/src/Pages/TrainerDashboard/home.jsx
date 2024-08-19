@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Line } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
@@ -11,8 +11,12 @@ import {
     PointElement
 } from 'chart.js';
 import '../UserDashboard/UserStyling/userhome.css'; // Import your CSS file
+import { TrainerContext } from './trainercontext.js'; 
+
 
 ChartJS.register(Title, Tooltip, Legend, LineElement, CategoryScale, PointElement,LinearScale);
+
+
 
 const Trainerhome = () => {
     const user = {
@@ -35,6 +39,8 @@ const Trainerhome = () => {
             bodyFat: '20%',
         }
     };
+
+    const { trainer } = useContext(TrainerContext);
 
     const chartData = {
         labels: user.months,
@@ -103,7 +109,7 @@ const Trainerhome = () => {
                 <div className="profile-header">
                     <img src={user.profilePicture} alt="Profile" className="profile-image" />
                     <div className="profile-info">
-                        <h1>{user.name}</h1>
+                        <h1>{trainer.name}</h1>
                         <p>Status: {user.membershipStatus}</p>
                     </div>
                 </div>

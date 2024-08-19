@@ -6,6 +6,7 @@ public enum TrainerType {
     STRENGTH,        // Specializes in strength training
     FLEXIBILITY,     // Focuses on flexibility exercises
     YOGA,            // Specializes in yoga practices
+    ZUMBA,
     PILATES,         // Specializes in Pilates training
     WEIGHT_LOSS,     // Focuses on weight loss programs
     NUTRITION,       // Specializes in nutrition and dietary guidance

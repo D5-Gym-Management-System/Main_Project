@@ -44,4 +44,7 @@ public class UserDTO {
 	private Long trainerId;
 	private int age;
 	
+
+	
+	
 }

@@ -1,5 +1,6 @@
 package com.app.controller;
 
+import java.io.IOException;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -20,17 +21,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.TrainerDTO;
+import com.app.dto.UserDTO;
 import com.app.dto.UserTrainerDTO;
 import com.app.service.TrainerService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import lombok.Getter;
+import lombok.Setter;
 
 @RestController
 @RequestMapping("/trainer")
 @Validated
+@Getter
+@Setter
+
 public class TrainerController {
 	@Autowired
 	private TrainerService trainerService;
+	
 
 	public TrainerController() {
 		System.out.println("in ctor of " + getClass());
@@ -44,7 +52,24 @@ public class TrainerController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(trainerService.addTrainer(trainerdto));
 	}
 
-	// http://host:port/trainers , method=GET
+	@GetMapping(value = "/{username}/{password}")
+	public ResponseEntity<?> getTrainerDetailsByUsernameAndPassword(
+	    @PathVariable String username, 
+	    @PathVariable String password) throws IOException {
+
+	    System.out.println("get details by username and password " + 
+	        "username -> " + username + ", password -> " + password);
+	    
+	    // Fetch user details
+	    TrainerDTO trainerDTO = trainerService.getUserByUsernameAndPassword(username, password);
+	    
+	    // Return the user details
+	    if (trainerDTO != null) {
+	        return ResponseEntity.ok(trainerDTO);
+	    } else {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Trainer not found");
+	    }
+	}
 
 	@GetMapping
 	public ResponseEntity<?> getAlltrainers() {
@@ -77,7 +102,7 @@ public class TrainerController {
 	}
 
 	// http://host:port/trainers , method=PUT
-	@PutMapping("/{trainerId}/trainerdto")
+	@PutMapping("/{trainerId}")
 	@Operation(summary = "Updating Complete trainer details")
 	public ResponseEntity<?> updatetrainer(@PathVariable Long trainerId, @RequestBody @Valid TrainerDTO trainerdto) {
 		System.out.println("in update proj " + trainerId + " " + trainerdto);

@@ -37,6 +37,7 @@ label{
     align-items: center;
     color: antiquewhite;
 }   
+
 #form{
 
     display: flex;
@@ -56,3 +57,24 @@ label{
     transform: scale(1.05); /* Slightly larger */
     box-shadow: rgba(255, 255, 255, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .password-container input {
+    width: 100%;
+    padding-right: 40px; /* Adjust as needed to make space for the toggle button */
+  }
+  
+  .password-container .toggle-password {
+    position: absolute;
+    right: 10px; /* Adjust to position the button */
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 18px; /* Adjust as needed */
+    color: #333; /* Adjust as needed */
+  }
+  

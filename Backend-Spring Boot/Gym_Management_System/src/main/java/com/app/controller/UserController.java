@@ -30,10 +30,19 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.app.dto.UserDTO;
 import com.app.service.UserService;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import com.app.service.ImageHandlingService;
 
 @RestController
 @RequestMapping("/user")
+@Getter
+@Setter
+@AllArgsConstructor
 public class UserController {
 	@Autowired
 	private UserService userService;
@@ -41,7 +50,9 @@ public class UserController {
 	@Autowired
 	private ImageHandlingService imageService;
 	
-	
+	UserController(){
+		System.out.println("in ctor of "+getClass());
+	}
 	
 	
 	@GetMapping

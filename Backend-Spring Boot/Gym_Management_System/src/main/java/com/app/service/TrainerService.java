@@ -27,6 +27,8 @@ public interface TrainerService {
 
 	ApiResponse deleteTrainer(Long trainerId);
 
+	TrainerDTO getUserByUsernameAndPassword(String username, String password);
+
 	
 
 }

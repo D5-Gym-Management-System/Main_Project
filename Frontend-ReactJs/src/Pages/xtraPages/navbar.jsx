@@ -31,6 +31,7 @@ const navigate=useNavigate();
         <li className="nav-item dropdown">
         <a className="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Register</a>
           <div className="dropdown-menu">
+          <a className="dropdown-item" onClick={()=>navigate("/register/Admin")}>Admin</a>
             <a className="dropdown-item" onClick={()=>navigate("/register/User")}>User</a>
             <a className="dropdown-item" onClick={()=>navigate("/register/Trainer")}>Trainer</a>
       

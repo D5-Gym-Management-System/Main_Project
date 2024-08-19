@@ -1,29 +1,35 @@
-import { Login } from './Pages/xtraPages/login';
+import { Login } from './Pages/xtraPages/login.jsx';
 import { Route, Routes } from 'react-router';
-import { Register } from './Pages/xtraPages/register';
-import { Forgetpassword } from './Pages/xtraPages/forgetpassword';
+import { Register } from './Pages/xtraPages/register.jsx';
+import { Forgetpassword } from './Pages/xtraPages/forgetpassword.jsx';
 import { BrowserRouter } from 'react-router-dom';
-import Home from './Pages/xtraPages/homepage';
+import Home from './Pages/xtraPages/homepage.jsx';
 // import Navbar from './Pages/xtraPages/navbar';
-import Plans from './Pages/xtraPages/plans';
-import Userdashboard from './Pages/UserDashboard/userdashboard';
-import Gymtiming from './Pages/xtraPages/timings';
-import Rules from './Pages/xtraPages/rules';
-import Images from './Pages/xtraPages/images';
-import Cart from './Pages/UserDashboard/cart';
-import GymProducts from './Pages/UserDashboard/gymproduct';
-import ContactUsPage from './Pages/xtraPages/contactus';
-import Trainerdashboard from './Pages/TrainerDashboard/trainerdashboard';
-import Admindashboard from './Pages/AdminDashboard/admindashboard';
+import Plans from './Pages/xtraPages/plans.jsx';
+import Userdashboard from './Pages/UserDashboard/userdashboard.jsx';
+import Gymtiming from './Pages/xtraPages/timings.jsx';
+import Rules from './Pages/xtraPages/rules.jsx';
+import Images from './Pages/xtraPages/images.jsx';
+
+import ContactUsPage from './Pages/xtraPages/contactus.jsx';
+import Trainerdashboard from './Pages/TrainerDashboard/trainerdashboard.jsx';
+import Admindashboard from './Pages/AdminDashboard/admindashboard.jsx';
 import { UserProvider } from './Pages/UserDashboard/usercontext.js';
-import SupportPage from './Pages/UserDashboard/support.jsx';
+
+
+import { TrainerProvider } from './Pages/TrainerDashboard/trainercontext.js';
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { AdminProvider } from './Pages/AdminDashboard/admincontext.js';
 
 function App(){
 
 
-return (
+return (<>
+<AdminProvider>
+      <TrainerProvider>
       <UserProvider>
-<BrowserRouter>
+      <BrowserRouter>
       <Routes>
           
       {/* <Register type="user"/> */}
@@ -44,17 +50,22 @@ return (
       <Route path='/Timings' element={<Gymtiming/>}/>
       <Route path='/rules' element={<Rules/>}/>
       <Route path='/images' element={<Images/>}/>
-      <Route path="/cart" element={<Cart/>} />
-      <Route path="/products" element={<GymProducts/>} />
+      {/* <Route path="/cart" element={<Cart/>} /> */}
+      {/* <Route path="/checkout" element={<Checkout />} /> */}
+      {/* <Route path="/products" element={<GymProducts/>} /> */}
       <Route path='/contactus' element={<ContactUsPage/>}/> 
-      <Route path='/support' element={<SupportPage/>}/> 
+      {/* <Route path='/support' element={<SupportPage/>}/>  */}
       <Route path='/trainerdashboard' element={<Trainerdashboard/>}/>
       <Route path='/admindashboard' element={<Admindashboard/>}/> 
       
      </Routes>
      </BrowserRouter>
+     <ToastContainer/>
      </UserProvider>
-
+     </TrainerProvider>
+     </AdminProvider>
+      <ToastContainer/>
+      </>
 )
 
 }

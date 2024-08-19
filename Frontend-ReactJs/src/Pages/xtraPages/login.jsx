@@ -5,6 +5,7 @@ import '../../Page_Styling/login.css';
 import { Link, useNavigate } from 'react-router-dom';
 // import Loginnavbar from './loginnavbar';
 import { UserContext } from '../UserDashboard/usercontext.js';
+import { TrainerContext } from '../TrainerDashboard/trainercontext.js';
 import axios from 'axios';
 
 export function Login(data) {
@@ -12,11 +13,12 @@ export function Login(data) {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
+  const { setTrainer } = useContext(TrainerContext);
 
-  async function afterlogin(event) {
+  async function afterloginUser(event) {
     event.preventDefault();
       try {
-        console.log("inside try afterlogin page");
+        console.log("inside try afterloginuser page");
         const userdetails = await axios.get(`http://localhost:8080/user/${username}/${password}`);
         toast.success("User Logged In", {
           transition: Slide,
@@ -36,27 +38,68 @@ export function Login(data) {
       //   autoClose: 3000,
       // });
     }
-    // else if(username==="trainer" && password==="trainer")
-    // {
-    //   navigate('/trainerdashboard');
-    // }
-    // else if(username==="admin" && password==="admin")
-    //   {
-    //     navigate('/admindashboard');
-    //   }
-    //   else {
-    //   toast.error("Invalid login Info", {
-    //     transition: Slide,
-    //     autoClose: 3000,
-    //   });
-    // }
+    async function afterloginAdmin(event) {
+      event.preventDefault();
+        try {
+          console.log("inside try afterlogin page");
+          const userdetails = await axios.get(`http://localhost:8080/user/${username}/${password}`);
+          toast.success("User Logged In", {
+            transition: Slide,
+            autoClose:1500
+          }); 
+          setUser(userdetails.data); // Set user data in context
+          console.log(userdetails.data);
+          setTimeout(() => navigate('/admindashboard'), 1500);
+        } catch (error) {
+          console.error('There was an error registering the user!', error);
+          toast.error('There was an error registering the user!');
+        }
+        // setUser(userdetails); // Set user data in context
+        // navigate('/userdashboard');
+        // toast.success("success", {
+        //   transition: Slide,
+        //   autoClose: 3000,
+        // });
+      }
+      async function afterloginTrainer(event) {
+        event.preventDefault();
+          try {
+            console.log("inside try afterlogintrainer page");
+            const trainerdetails = await axios.get(`http://localhost:8080/trainer/${username}/${password}`);
+            toast("Trainer Logged In", {
+              transition: Slide,
+              autoClose:1400
+            }); 
+            setTrainer(trainerdetails.data); // Set user data in context
+            console.log(trainerdetails.data);
+            setTimeout(() => navigate('/trainerdashboard'), 1500);
+          } catch (error) {
+            console.error('There was an error registering the user!', error);
+            toast.error('There was an error registering the user!');
+          }
+          // setUser(userdetails); // Set user data in context
+          // navigate('/userdashboard');
+          // toast.success("success", {
+          //   transition: Slide,
+          //   autoClose: 3000,
+          // });
+        }
+   
   
 
   return (
     <div id="loginpage">
       <ToastContainer />
       {/* <Loginnavbar/> */}
-      <form id="loginform" onSubmit={afterlogin}>
+      <form id="loginform" onSubmit={(e) => {
+    e.preventDefault();
+    if (data.type === "user") {
+      afterloginUser(e);}
+       else if (data.type === "trainer") {
+        afterloginTrainer(e);}
+      else if (data.type === "admin") {
+        afterloginAdmin(e);}}}>
+
         {data.type === "user" ? (
           <h1>User Login</h1>
         ) : null}

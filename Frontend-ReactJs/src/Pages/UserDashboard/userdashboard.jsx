@@ -10,27 +10,13 @@ import Userhome from './home';
 import { UserContext } from './usercontext.js'; 
 import SupportPage from './support.jsx';
 import MessagesPage from './messages.jsx';
+import Checkout from './checkout.jsx';
 
 function Userdashboard() {
     const navigate = useNavigate();
     const [isSidebarOpen, setSidebarOpen] = useState(false);
     const [currentComponent, setCurrentComponent] = useState('home'); // Manage currently selected component
-    const { user } = useContext(UserContext); // User data from context
-
-    // Fetch user data if needed (comment out if not required)
-    // useEffect(() => {
-    //     const fetchUserData = async () => {
-    //         try {
-    //             const response = await axios.get('http://localhost:8080/user'); // Adjust endpoint as needed
-    //             console.log(response.data);
-    //             // If you need to update state with fetched data
-    //             // setUsers(response.data);
-    //         } catch (error) {
-    //             console.error("Data could not be fetched, error -> " + error);
-    //         }
-    //     };
-    //     fetchUserData();
-    // }, []);
+    const { user, setUser } = useContext(UserContext); // User data from context
 
     const toggleSidebar = () => {
         setSidebarOpen(!isSidebarOpen);
@@ -40,48 +26,59 @@ function Userdashboard() {
         setCurrentComponent(componentName);
     };
 
+    const handleLogout = () => {
+        setUser(null); // This will also remove user from localStorage
+        navigate('/');
+    };
+
     const renderComponent = () => {
         switch (currentComponent) {
             case 'home':
                 return <Userhome />;
             case 'cart':
-                return <Cart />;
+                return <Cart onCheckoutClick={() => handleComponentChange('checkout')} />;
             case 'products':
-                return <GymProducts />;
+                return <GymProducts onCartClick={() => handleComponentChange('cart')} />;
             case 'profile':
                 return <Profile />;
+            case 'checkout':
+                return <Checkout />;
             case 'support':
-                return <SupportPage />;
+                return <SupportPage role="USER" name={user.name} />;
             case 'messages':
-                return <MessagesPage />;
+                return <MessagesPage role="USER"  name={user.name}/>;
+            case 'logout':
+                handleLogout();
+                break;
             default:
-                return <Cart />;
+                return <Userhome />;
         }
     };
 
     return (
         <main id="userdashboardmain" className={isSidebarOpen ? 'sidebar-open' : ''}>
-            <aside>
-                <Usersidebar 
-                    sidebarOpen={!isSidebarOpen} 
-                    toggleSidebar={toggleSidebar} 
-                    onComponentChange={handleComponentChange} 
-                />
-            </aside>
-            <div id="maincontent" className={isSidebarOpen ? 'collapsed' : ''}>
-                {user ? (
-                    <>
+            {user ? (
+                <>
+                    <aside>
+                        <Usersidebar
+                            sidebarOpen={!isSidebarOpen}
+                            toggleSidebar={toggleSidebar}
+                            onComponentChange={handleComponentChange}
+                        />
+                    </aside>
+                    <div id="maincontent" className={isSidebarOpen ? 'collapsed' : ''}>
                         <h1>Hello {user.name}, Welcome to the user dashboard</h1>
-                        <hr/>
+                        <hr />
                         {renderComponent()}
-                    </>
-                ) : (
-                    <p>Loading...</p>
-                    
-                )}
-                <button className="btn btn-warning" onClick={() => navigate('/login')}>Go back to Login</button>
-                <button className="btn btn-success" onClick={() => navigate('/home')}>Home</button>
-            </div>
+                    </div>
+                </>
+            ) : (
+                <div id="maincontent">
+                    <h3>Session Timeout or Page Got Refreshed</h3>
+                    <button className="btn btn-warning" onClick={() => navigate('/login/User')}>Go back to Login</button>
+                    <button className="btn btn-success" onClick={() => navigate('/home')}>Home</button>
+                </div>
+            )}
         </main>
     );
 }

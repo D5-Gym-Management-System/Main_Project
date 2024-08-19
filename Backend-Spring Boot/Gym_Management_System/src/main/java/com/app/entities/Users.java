@@ -51,6 +51,7 @@ public class Users extends BaseEntity {
 	private MembershipType type;
 	@Min(0)
 	int age;
+	
 //	@Lob // large object :col : longblob
 //	private byte[] image;
 	private String imagePath;
@@ -61,23 +62,7 @@ public class Users extends BaseEntity {
 	@JoinColumn(name = "trainerId") // Optional BUT reco , to specify the name of FK col.
 	private Trainer trainer;
 	
-	// one to one association Employee ----> AdharCard
-//	@Embedded // OPTIONAL
-//	private AdhaarCard card;
-//	// Employee HAS-A skills (string)
-//	@ElementCollection // mandatory
-//	@CollectionTable(name = "emp_skills", joinColumns = @JoinColumn(name = "emp_id"))
-//	@Column(name = "skill_name", length = 20)
-//	private List<String> skills = new ArrayList<>();
-//	// one to many association between Employee 1--->* PaymentCard
-//	@ElementCollection
-//	@CollectionTable(name = "emp_payment_cards", 
-//	joinColumns = @JoinColumn(name = "emp_id"))
-//	private List<PaymentCard> cards = new ArrayList<>();
-	
-	
-	
-	
+
 	
 
 }

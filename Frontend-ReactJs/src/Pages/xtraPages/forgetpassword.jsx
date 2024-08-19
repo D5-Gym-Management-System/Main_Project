@@ -113,7 +113,7 @@ export function Forgetpassword( data ) {
             <div id="loginpage">
                 <form id="loginform" onSubmit={handleSubmit}>
                     {data.type === "user" ? (
-                        <h1>Welcome User Reset Password</h1>
+                        <h1>Reset Password</h1>
                     ) : null}
                     {data.type === "trainer" ? (
                         <h1>Welcome Trainer Reset password</h1>
